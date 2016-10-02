@@ -1,0 +1,17 @@
+--2016-09-19 14:00:39--  http://-/
+Resolving - (-)... failed: Name or service not known.
+wget: unable to resolve host address ‘-’
+--2016-09-19 14:00:39--  http://icanhazip.com/
+Resolving icanhazip.com (icanhazip.com)... 64.182.208.184, 64.182.208.182, 64.182.208.181, ...
+Connecting to icanhazip.com (icanhazip.com)|64.182.208.184|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 15 [text/plain]
+Saving to: ‘index.html.1’
+
+     0K                                                       100% 2.13M=0s
+
+2016-09-19 14:00:39 (2.13 MB/s) - ‘index.html.1’ saved [15/15]
+
+FINISHED --2016-09-19 14:00:39--
+Total wall clock time: 0.2s
+Downloaded: 1 files, 15 in 0s (2.13 MB/s)
