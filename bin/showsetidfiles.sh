@@ -1,1 +1,1 @@
-./showsetidfiles.sh
+../showsetidfiles.sh

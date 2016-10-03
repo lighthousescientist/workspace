@@ -7,7 +7,8 @@
 #read -p "Update message? " message
 
 chmod u+x ~/workspace/*.sh
-ln -s ~/workspace/*.sh ~/workspace/bin/
+cd ~/workspace/bin/
+ln -s ../*.sh ./
 git add -A
 git commit -m "$1"
 git push origin master

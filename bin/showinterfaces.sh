@@ -1,1 +1,1 @@
-./showinterfaces.sh
+../showinterfaces.sh

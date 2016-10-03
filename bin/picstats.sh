@@ -1,1 +1,1 @@
-./picstats.sh
+../picstats.sh

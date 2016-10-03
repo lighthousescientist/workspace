@@ -1,1 +1,1 @@
-./rollafood.sh
+../rollafood.sh

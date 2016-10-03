@@ -1,1 +1,1 @@
-./arguments.sh
+../arguments.sh

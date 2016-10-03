@@ -1,1 +1,1 @@
-./pickanumber.sh
+../pickanumber.sh

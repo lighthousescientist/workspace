@@ -1,1 +1,1 @@
-./procsbyuser.sh
+../procsbyuser.sh

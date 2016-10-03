@@ -1,1 +1,1 @@
-./arithmeticdemo.sh
+../arithmeticdemo.sh

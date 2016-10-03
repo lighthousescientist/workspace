@@ -1,1 +1,1 @@
-./updategit.sh
+../updategit.sh
