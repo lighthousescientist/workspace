@@ -1,1 +1,1 @@
-../showsetidfiles.sh
+../lab1/showsetidfiles.sh

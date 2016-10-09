@@ -1,1 +1,1 @@
-../mypid.sh
+../lab1/mypid.sh

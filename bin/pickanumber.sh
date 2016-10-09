@@ -1,1 +1,1 @@
-../pickanumber.sh
+../lab3/pickanumber.sh

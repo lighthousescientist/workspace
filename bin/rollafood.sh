@@ -1,1 +1,1 @@
-../rollafood.sh
+../lab2/rollafood.sh

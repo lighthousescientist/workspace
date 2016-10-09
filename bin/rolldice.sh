@@ -1,1 +1,1 @@
-../rolldice.sh
+../lab3/rolldice.sh

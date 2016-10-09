@@ -1,1 +1,1 @@
-../myip.sh
+../lab1/myip.sh

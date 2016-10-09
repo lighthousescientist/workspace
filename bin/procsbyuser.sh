@@ -1,1 +1,1 @@
-../procsbyuser.sh
+../lab3/procsbyuser.sh

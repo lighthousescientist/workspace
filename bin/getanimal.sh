@@ -1,1 +1,1 @@
-../getanimal.sh
+../lab2/getanimal.sh

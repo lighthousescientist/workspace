@@ -1,1 +1,1 @@
-../helloworldalt.sh
+../lab1/helloworldalt.sh

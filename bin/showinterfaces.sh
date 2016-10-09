@@ -1,1 +1,1 @@
-../showinterfaces.sh
+../lab2/showinterfaces.sh

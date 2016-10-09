@@ -1,1 +1,1 @@
-../welcome.sh
+../lab2/welcome.sh

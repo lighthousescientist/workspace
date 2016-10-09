@@ -1,1 +1,1 @@
-../helloscript.sh
+../lab1/helloscript.sh

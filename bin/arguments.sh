@@ -1,1 +1,1 @@
-../arguments.sh
+../lab2/arguments.sh

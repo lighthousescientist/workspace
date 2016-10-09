@@ -1,1 +1,1 @@
-../backupbin.sh
+../lab1/backupbin.sh
