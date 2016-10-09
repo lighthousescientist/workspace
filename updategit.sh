@@ -16,6 +16,7 @@ ln -s ../lab1/*.sh ./
 ln -s ../lab2/*.sh ./
 ln -s ../lab3/*.sh ./
 ln -s ../lab4/*.sh ./
+ln -s ../*.sh ./
 
 git add -A
 git commit -m "$1"
