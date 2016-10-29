@@ -20,6 +20,8 @@ function showUsage {
 ## This function gives an error message
 function error-message {
  #>&1 - redirect output to stdout
+ #$@ is all positional parameters
+ #this allows for more specific error messages
  echo "(!)ERROR(!) Invalid Input: $@" >&1
 
 }
