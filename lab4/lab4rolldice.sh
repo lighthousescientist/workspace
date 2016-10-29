@@ -1,63 +1,97 @@
 #!/bin/bash
+##Modify rolldice.sh to accept a count of dice and a number of sides as command 
+##line options, only asking the user for those numbers if they didn't give them 
+##on the command line. Also accept a help option (-h or --help) that shows 
+##command syntax. Use a function to display command syntax help when appropriate.
+## this script prompts the user for a count of dice and then rolls them
 
-#Prompt the user to provide a count from 1 to 5 which will be your number of dice, defaulting to 2 dice if the user just presses enter.
-# Prompt the user for how many sides the dice should have (assume they all have the same number of sides). The number of sides must be from 4 to 20,
-# with 6 being the default if the user just presses enter.
-# Roll your virtual dice, and display what number came up on each,
-#along with the sum of the rolls. Be sure to include the defaults in your prompts to the user.
+### Variables definitions
+declare -i numdice
+declare -i numside
 
-#Lab4
-#Modify rolldice.sh to accept a count of dice and a number of sides as command 
-#line options, only asking the user for those numbers if they didn't give them 
-#on the command line. Also accept a help option (-h or --help) that shows command 
-#syntax. Use a function to display command syntax help when appropriate.
+#Functions
+function shusage {
+  	echo "Usage: $0 [-h] [-c #] [-s #]"
+}
+function errormsg {
+    echo "***ERROR: $@" >&2
+}
 
-#lab4#######################
-while getopts ":d:s:h:" opt; do
-  case $opt in
-    d)
-      echo "# of dice"
-      let dice=${OPTARG}
-      #[ -z ${OPTARG} ] || let dice=2
-      echo $dice
-      ;;
-    s)
-      echo "# of sides"
-      let sides=${OPTARG}
-      #[ -z ${OPTARG} ] || let sides=6
-      echo $sides
-      exit
-      ;;
-    h)
-      echo "-d      dice count (1-5) (default 2)"
-      echo "-s      side count (4-20) (default 6)"
-      exit
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit
-      ;;
-  esac
+## Process the command line
+# set some reasonable defaults
+numdice=0
+numside=0
+while [ $# -gt 0 ]; do
+	case "$1" in
+	-h )
+		shusage
+		exit 0
+		;;
+	-c )
+    if [[ "$2" =~ ^[1-5]$ ]]; then
+      numdice=$2
+      #Need shift for EACH addition item to be processed
+      shift
+    else
+      errormsg "Invalid number for -c, please use 1-5"
+      exit 2
+    fi
+    ;;
+  -s )
+    if [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
+      if [ "$2" -ge 4 -a "$2" -le 20 ]; then
+        numside=$2
+        shift
+      else
+        errormsg "Invalid number for -s, please use 4-20"
+        exit 2
+      fi
+    else
+      errormsg "Invalid number for -s, please use 4-20" 
+      exit 2
+    fi
+    ;;
+	* )
+		shusage
+		errormsg "Argument '$1' not recognized"
+		exit 2
+		;;
+	esac
+	shift
 done
-############################
+# we now have count and sides variables
+# count and sides may have zero in them if the user didn't give us anything for them
 
-read -p "Provide a dice count (1-5) (default 2): " dice
-[ -n "$dice" ] || let dice=2 
-echo $dice
-
-read -p "How many sides should dice have (4-20) (default 6): " sides
-[ -n "$sides" ] || let sides=6
-echo $sides
-
-echo "Rolling virtual dice..."
-
-i="0"
-while [ $i -lt $dice ]
-do
-roll=$(($RANDOM %$sides+1))
-echo Rolled a $roll
-total=$(($total + $roll))
-i=$[$i+1]
+## Get a roll count if there wasn't one on the command line
+# get a valid roll count from the user
+until [[ $numdice =~ ^[1-5]$ ]]; do
+  read -p "How many dice will be rolled[1-5]? " count
+# ignore empty count
+  [ -n "$numdice" ] || continue
+# specificied count must have the number 1-5 only
+#  [[ $count =~ ^[1-5]$ ]] && break
 done
-echo For a total of $total.
+# get a valid number of sides from the user
+while [ "$numside" -lt 4 -o "$numside" -gt 20 ]; do
+  read -p "How many sides will be rolled[4-20]? " sides
+# ignore empty number
+  [ -n "$numside" ] || continue
+# specified sides must have the number 4-20 only
+  if [[ "$numside" =~ ^[1-9][0-9]*$ ]]; then
+    if [ "$numside" -ge 4 -a "$numside" -le 20 ]; then
+      break
+    fi
+  fi
 
+done
+
+## Do the script's work
+# do the dice roll as many times as the user asked for
+for (( numroll=0 ; numroll < numdice ; numroll++ )); do
+# roll the dice
+  die1=$(($RANDOM % $numside +1))
+  die2=$(($RANDOM % $numside +1))
+  sum=$(($die1 + $die2))
+# show the roll results
+  echo "Rolled $die1,$die2 for $sum"
+done

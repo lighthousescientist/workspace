@@ -1,1 +1,3 @@
-Create a function named error-message that accepts text on the command line which is displayed as an error message on stdout.
+You have an error.
+
+#(cmdlist) exit status

@@ -8,7 +8,7 @@
 declare -a ips
 interfacenames=(`ifconfig | grep '^[a-zA-Z]'| awk '{print $1}'` )
 ips[0]=`ifconfig ${interfacenames[0]} | grep 'inet addr' | sed -e 's/ *inet addr://'| sed -e 's/ .*//'`
-ips[1]=`ifconfig ${interfacenames[0]} | grep 'inet addr' | sed -e 's/ *inet addr://'| sed -e 's/ .*//'`
+ips[1]=`ifconfig ${interfacenames[1]} | grep 'inet addr' | sed -e 's/ *inet addr://'| sed -e 's/ .*//'`
 
 #variable for default gateway
 gatewayip=(`route -n | grep '^0.0.0.0'| awk '{print $2}'` )
