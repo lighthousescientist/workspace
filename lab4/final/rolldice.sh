@@ -23,7 +23,6 @@ function error-message {
  #$@ is all positional parameters
  #this allows for more specific error messages
  echo "(!)ERROR(!) Invalid Input: $@" >&1
-
 }
 
 #set variables to 0 for loops to work

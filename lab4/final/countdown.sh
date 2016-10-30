@@ -1,4 +1,5 @@
 #!/bin/bash
+#William McArthur 200324001
 
 #Create a script that waits for a user-specified number of seconds printing out
 #an update each second showing how many seconds are left, and catches the 
@@ -21,17 +22,19 @@
 #initialtime allows me to reset the timer
 declare -i initialtime
 declare -i timeremaining
+
 initialtime=0
 timeremaining=0
 
+
 ## This function shows help information
 function showUsage {
-  echo "Please enter a positive integer."
+  echo "Please input a positive integer and press ENTER."
 }
 ## This function gives an error message
 function error-message {
  #>&1 - redirect output to stdout
- echo "(!)ERROR(!) Invalid Input," >&1
+ echo "(!)ERROR(!)" >&1
 
 }
 ##ctrl \ 
@@ -43,10 +46,11 @@ exit 0
 ##ctrl c - reset the countdown
 ##achieved by resetting timeremaining with initialtime given by user
 function int {
-echo ""
-timeremaining=initialtime
-#let the user know the timer is reset
-echo "Resetting to $initialtime seconds..."
+    echo ""
+    timeremaining=initialtime
+    #let the user know the timer is reset
+    echo "Resetting to $initialtime seconds..."
+
 }
 ######################################################
 #Main body
@@ -59,20 +63,23 @@ read -p "How many seconds would you like to burn?: " initialtime
 #timeremaining is the working variable and initial time is a backup
 timeremaining=initialtime
 #if timeremaining is not an integer, display error and help
-if [[ "$timeremaining" != ^[1-9][0-9]*$ ]]; then
+if [[ -z "$timeremaining" ]] || [[ "$timeremaining" = "0" ]] || [[ "$timeremaining" -lt "0" ]]; then
 error-message
 showUsage
 fi
 done
+
 #the countdown only starts if timeremaing is greater than 0    
 while [ $timeremaining -gt 0 ]; do
 
+    
     echo "$timeremaining more seconds..."
     timeremaining=$(($timeremaining-1))
     sleep 1 &
     wait $!
     
 done
+    
 }
 ######################################################
 
