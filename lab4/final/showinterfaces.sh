@@ -31,19 +31,25 @@ function error-message {
 defaultroute="false"
 
 #declare interface array
-declare -a ips
+declare -a iparray
 
+#while there is an argument, test with case statements
 while [ $# -gt 0 ]; do
 	case "$1" in
+	#help
 	-h )
 		showUsage
 		exit 0
 		;;
-  -r )
+	#display default routing information
+   -r )
    defaultroute="true"
     ;;
+    #for all else
 	* )
+		#tell the user what the program expects
 		showUsage
+		#tell the user what they did wrong
 		error-message "Argument '$1' not recognized"
 		exit 2
 		;;
@@ -51,18 +57,25 @@ while [ $# -gt 0 ]; do
 	shift
 done
 
-#MAIN
+###############MAIN
+#ifconfig displays the interface information
+#we pipe to grep that searches for an alphabetical pattern
+#finally piping to awk, which will provide field 1 of ifconfig
+intname=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
+#using associative arrays
+#grep locates "intet addr"
+#first sed records the inet address
+#second sed closes it off as to not include the Bcast and Mask
+iparray[0]=`ifconfig ${intname[0]} | grep 'inet addr' | sed -e 's/  *inet addr://' | sed -e 's/ .*//'`
+iparray[1]=`ifconfig ${intname[1]} | grep 'inet addr' | sed -e 's/  *inet addr://' | sed -e 's/ .*//'`
+#record default gateway address from "route -n"
+gateway=`route -n|grep '^0.0.0.0 '|awk '{print $2}'`
 
-interfacenames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
-ips[0]=`ifconfig ${interfacenames[0]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
-ips[1]=`ifconfig ${interfacenames[1]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
-
-gatewayip=`route -n|grep '^0.0.0.0 '|awk '{print $2}'`
-
-
-echo "Interface ${interfacenames[0]} has address ${ips[0]}"
-echo "Interface ${interfacenames[1]} has address ${ips[1]}"
-
+#display information for first interface in ifconfig
+echo "Interface ${intname[0]} has address ${iparray[0]}"
+#display information for second interface
+echo "Interface ${intname[1]} has address ${iparray[1]}"
+#if the user uses the "-r" flag, display default gateway information
 if [ $defaultroute != "false" ]; then
-echo "My default gateway is $gatewayip"
+echo "My default gateway is $gateway"
 fi
