@@ -68,8 +68,7 @@ intname=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
 #second sed closes it off as to not include the Bcast and Mask
 iparray[0]=`ifconfig ${intname[0]} | grep 'inet addr' | sed -e 's/  *inet addr://' | sed -e 's/ .*//'`
 iparray[1]=`ifconfig ${intname[1]} | grep 'inet addr' | sed -e 's/  *inet addr://' | sed -e 's/ .*//'`
-#record default gateway address from "route -n"
-gateway=`route -n|grep '^0.0.0.0 '|awk '{print $2}'`
+
 
 #display information for first interface in ifconfig
 echo "Interface ${intname[0]} has address ${iparray[0]}"
@@ -77,5 +76,8 @@ echo "Interface ${intname[0]} has address ${iparray[0]}"
 echo "Interface ${intname[1]} has address ${iparray[1]}"
 #if the user uses the "-r" flag, display default gateway information
 if [ $defaultroute != "false" ]; then
+#record default gateway address from "route -n"
+gateway=`route -n|grep '^0.0.0.0 '|awk '{print $2}'`
+#tell the user what the default gateway is
 echo "My default gateway is $gateway"
 fi
