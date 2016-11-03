@@ -14,6 +14,11 @@
 function showUsage {
   #$0 will be the name of the script
   echo "Usage: $0 [-h] [-c #] [directory]"
+  #Detailing what options are available and what they do
+  echo "Option          Meaning"
+  echo "-h              show help"
+  echo "-c              top # of files to show"
+  echo "[directory]     path of directory with files"
 }
 ## This function gives an error message
 function error-message {
@@ -31,7 +36,7 @@ declare -i count #how many files are in directory
 show=3 #if user does not specify, show top 3 files by default
 default=~/Pictures #if no directory specified, use ~/Pictures
 
-### MAIN
+############################################################### MAIN
 
 ## Process our command line
 # allow directory to be specified and filecount to be specified

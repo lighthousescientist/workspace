@@ -49,7 +49,8 @@ function int {
     echo ""
     timeremaining=initialtime
     #let the user know the timer is reset
-    echo "Resetting to $initialtime seconds..."
+    #do not say resetting time when countdown is not going on
+    [ "$initialtime" -gt 0 ] && echo "Resetting to $initialtime seconds..."
 
 }
 ######################################################
@@ -87,5 +88,8 @@ done
 while [[ 1 ]]; do
 trap quit SIGQUIT
 trap int SIGINT
+#when set to zero when countdown finishes
+#when countdown is not going on, ctrl^c won't display reset message
+initialtime=0
 countdown
 done

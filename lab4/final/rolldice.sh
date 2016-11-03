@@ -16,6 +16,11 @@ declare -i sides
 function showUsage {
   #$0 will be the name of the script
   echo "Usage: $0 [-h] [-d #] [-s #]"
+  #Detailing what options are available and what they do
+  echo "Option    Meaning"
+  echo "-h        show help"
+  echo "-d        # of dice  [1-5]"
+  echo "-s        # of sides [4-20]"
 }
 ## This function gives an error message
 function error-message {
@@ -36,8 +41,6 @@ while [ $# -gt 0 ]; do
 	#help argument
 	-h )
 		showUsage
-		echo "Number required for -d, from 1 to 5"
-    echo "Number required for -s, from 4 to 20"
 		exit 0
 		;;
 	#dice number argument
