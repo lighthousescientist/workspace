@@ -1,0 +1,24 @@
+Commands and Options
+###############searching for text
+grep -e PATTERN, -f FILE
+cut -b bytes, -c characters, -d delimeter, -f field/line
+sed -n silent, -e script, -f script-file, -i in-place, -l line-length, -s separate, -z null-data
+awk -b character bytes, -d file, -n non-decimal-data, -N lc-numeric 
+#################searching for files
+find -printf
+ls -d directory, -h human, -S size K, M, G
+###################Job Control - Foreground, Background
+^Z
+jobs
+fg
+bg
+###############Sorting data
+sort
+uniq
+ls
+du -0 null, -c total, 
+ps
+
+quit 0 = ok
+quit 1 = minor
+quit 2 = serious
