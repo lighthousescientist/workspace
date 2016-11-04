@@ -1,3 +1,0 @@
-You have an error.
-
-#(cmdlist) exit status
