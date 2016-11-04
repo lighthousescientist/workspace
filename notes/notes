@@ -22,3 +22,41 @@ ps
 quit 0 = ok
 quit 1 = minor
 quit 2 = serious
+
+3.2 Sample: stdout 2 file
+
+This will cause the ouput of a program to be written to a file.
+
+         ls -l > ls-l.txt
+        
+Here, a file called 'ls-l.txt' will be created and it will contain what you would see on the screen if you type the command 'ls -l' and execute it.
+3.3 Sample: stderr 2 file
+
+This will cause the stderr ouput of a program to be written to a file.
+
+         grep da * 2> grep-errors.txt
+        
+Here, a file called 'grep-errors.txt' will be created and it will contain what you would see the stderr portion of the output of the 'grep da *' command.
+3.4 Sample: stdout 2 stderr
+
+This will cause the stderr ouput of a program to be written to the same filedescriptor than stdout.
+
+         grep da * 1>&2 
+        
+Here, the stdout portion of the command is sent to stderr, you may notice that in differen ways.
+3.5 Sample: stderr 2 stdout
+
+This will cause the stderr ouput of a program to be written to the same filedescriptor than stdout.
+
+         grep * 2>&1
+        
+Here, the stderr portion of the command is sent to stdout, if you pipe to less, you'll see that lines that normally 'dissapear' (as they are written to stderr) are being kept now (because they're on stdout).
+3.6 Sample: stderr and stdout 2 file
+
+This will place every output of a program to a file. This is suitable sometimes for cron entries, if you want a command to pass in absolute silence.
+
+         rm -f $(find / -name core) &> /dev/null 
+         
+$BASH is a local variable that is valid in the current (bash) shell only.
+
+Environment variables such as $SHELL are valid systemwide. In a current Bash shell, $BASH points to the execution path of bash, whereas $SHELL points to the shell defined as default (which may be of the same value).

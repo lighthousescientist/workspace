@@ -1,0 +1,9 @@
+Failed commands often generate unwanted or irrelevant error messages
+That output can be saved as a log, sent to whoever should see it, or discarded
+Logs are usually kept in /var for programs we care about managing
+Redirect output using >&, >>&, |&, or #>, or #>&#
+
+grapsnag >& /tmp/errormessage.txt
+if [ $? != 0 ]; then
+	logger -t $(basename "$0") -i -p user.warning -f /tmp/errormessage.txt && rm /tmp/errormessage.txt
+fi

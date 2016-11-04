@@ -25,3 +25,5 @@ read -p "This is an example prompt" myvar
 #-nt (newer)
 #-ot (older than)
 
+We can do unary tests for file existence (-e), type (-f,-d,-h,-p,-b,-c,-S), permissions (-r,-w,-x,-k,-u), ownership (-O,-G), size (-s), modification (-N), and whether a file is an open terminal device (-t fd)
+We can do binary tests on files based on their dates (-nt, -ot), and determine if two filenames are hard linked (-ef)

@@ -1,0 +1,47 @@
+9.3.1. What is it?
+
+The until loop is very similar to the while loop, except that the loop executes until the TEST-COMMAND executes successfully. As long as this command fails, the loop continues. The syntax is the same as for the while loop:
+
+until TEST-COMMAND; do CONSEQUENT-COMMANDS; done
+
+The return status is the exit status of the last command executed in the CONSEQUENT-COMMANDS list, or zero if none was executed. TEST-COMMAND can, again, be any command that can exit with a success or failure status, and CONSEQUENT-COMMANDS can be any UNIX command, script or shell construct.
+
+As we already explained previously, the ";" may be replaced with one or more newlines wherever it appears.
+
+9.3.2. Example
+
+An improved picturesort.sh script (see Section 9.2.2.2), which tests for available disk space. If not enough disk space is available, remove pictures from the previous months:
+
+
+#!/bin/bash
+
+# This script copies files from my homedirectory into the webserver directory.
+# A new directory is created every hour.
+# If the pics are taking up too much space, the oldest are removed.
+
+while true; do 
+	DISKFUL=$(df -h $WEBDIR | grep -v File | awk '{print $5 }' | cut -d "%" -f1 -)
+
+	until [ $DISKFUL -ge "90" ]; do 
+
+        	DATE=`date +%Y%m%d`
+        	HOUR=`date +%H`
+        	mkdir $WEBDIR/"$DATE"
+                                                                                
+        	while [ $HOUR -ne "00" ]; do
+                	DESTDIR=$WEBDIR/"$DATE"/"$HOUR"
+                	mkdir "$DESTDIR"
+                	mv $PICDIR/*.jpg "$DESTDIR"/
+                	sleep 3600
+                	HOUR=`date +%H`
+        	done
+
+	DISKFULL=$(df -h $WEBDIR | grep -v File | awk '{ print $5 }' | cut -d "%" -f1 -)
+	done
+
+	TOREMOVE=$(find $WEBDIR -type d -a -mtime +30)
+	for i in $TOREMOVE; do
+		rm -rf "$i";
+	done
+
+done
